@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Region;
 
-class Title extends Model
+class Place extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'region_id',
-        'title_name',
-        'total_point',
-        'image',
+        'place_name',
+        'place_info',
+        'place_link',
+        'place_point',
+        'place_image',
     ];
 
     public function region()
@@ -22,5 +24,3 @@ class Title extends Model
         return $this->belongsTo(Region::class);
     }
 }
-
-

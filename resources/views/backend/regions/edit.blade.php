@@ -37,45 +37,8 @@
                 <div class="-m-2">
                     <div class="p-2 w-4/5 mx-auto">
                         <div class="relative">
-                        <label for="place" class="leading-7 text-sm text-gray-600">名所<span class="text-red-600">　※必須</span></label>
-                        <input type="text" id="place" name="place" value="{{ $region->place }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="-m-2">
-                    <div class="p-2 w-4/5 mx-auto">
-                        <div class="relative">
-                        <label for="info" class="leading-7 text-sm text-gray-600">説明文<span class="text-red-600">　※必須(3000文字以内)</span></label>
-                        <textarea name="info" id="info" cols="30" rows="10" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ $region->info }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="m-2">
-                    <div class="p-2 w-4/5 mx-auto">
-                        <div class="relative">
-                            <label for="point" class="leading-7 text-sm text-gray-600">ポイント<span class="text-red-600">　※必須</span></label>
-                            <input type="number" id="point" name="point" value="{{ $region->point }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="m-2">
-                    <div class="p-2 w-4/5 mx-auto">
-                        <div class="relative">
-                        <label for="link" class="leading-7 text-sm text-gray-600">リンク<span class="text-red-600">　※必須</span></label>
-                        <input type="text" id="link" name="link" value="{{ $region->link }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex-container mb-4">
-                    <div class="image-input">
-                        <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">画像<span class="text-red-600">（1MB以下　※必須）</span></label>
-                        <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(this, 'preview_image')" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                        <div class="image-preview mt-2" id="preview_image">
-                            <img src="{{ $region->image }}" alt="No Image" class="image-preview">
+                        <label for="prefecture" class="leading-7 text-sm text-gray-600">県名<span class="text-red-600">　※必須</span></label>
+                        <input type="text" id="prefecture" name="prefecture" value="{{ $region->prefecture }}" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-yellow-500 focus:bg-white focus:ring-2 focus:ring-yellow-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                         </div>
                     </div>
                 </div>
@@ -93,27 +56,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function previewImage(input, previewId) {
-            const maxFileSize = 1 * 1024 * 1024; // 1MBをバイト単位で定義
-    
-            if (input.files && input.files[0]) {
-                // ファイルサイズチェック
-                if (input.files[0].size > maxFileSize) {
-                    // ファイルサイズが1MBを超える場合
-                    alert('ファイルサイズは1MB以下にしてください。');
-                    input.value = ''; // 選択されたファイルをクリア
-                    document.getElementById(previewId).innerHTML = '<img src="{{ asset('storage/noimage.jpg') }}" alt="No Image" style="width: 200px; height: auto;">'; // プレビューをデフォルト画像にリセット
-                    return; // これ以上処理を続行しない
-                }
-    
-                // ファイルサイズが1MB以下の場合、画像をプレビュー
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById(previewId).innerHTML = '<img src="' + e.target.result + '" alt="Image preview" style="width: 200px; height: auto;">';
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
+
 </x-admin-layout>

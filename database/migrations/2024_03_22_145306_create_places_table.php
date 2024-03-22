@@ -11,10 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('prefecture');
+            $table->foreignId('region_id')
+            ->constrained('regions')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->string('place_name');
+            $table->text('place_info');
+            $table->text('place_link');
+            $table->string('place_image');
+            $table->integer('place_point')->unsigned();
             $table->datetime('created_at');
             $table->datetime('updated_at');
         });
@@ -25,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('places');
     }
 };

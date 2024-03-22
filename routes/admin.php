@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\Admin\RegisteredUserController;
 use App\Http\Controllers\Auth\Admin\VerifyEmailController;
 use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\RegionController;
+use App\Http\Controllers\Backend\PlaceController;
 use App\Http\Controllers\Backend\TitleController;
 
 /*
@@ -93,12 +94,21 @@ Route::middleware('auth:admins')->group(function () {
         Route::delete('/regions/{id}', 'destroy')->name('backend.regions.destroy');
         });
 
+    Route::controller(PlaceController::class)->group(function () {
+        Route::get('/places/{region}', 'index')->name('backend.places.index');
+        Route::get('/places/{region}/create', 'create')->name('backend.places.create');
+        Route::post('/places', 'store')->name('backend.places.store');
+        Route::get('/places/{region}/{place}/edit', 'edit')->name('backend.places.edit');
+        Route::put('/places/{region}/{place}', 'update')->name('backend.places.update');
+        Route::delete('/places/{region}/{place}', 'destroy')->name('admin.backend.places.destroy');
+        });
+
     Route::controller(TitleController::class)->group(function () {
-        Route::get('/titles', 'index')->name('backend.titles.index');
-        Route::get('/titles/create/{region}', 'create')->name('backend.titles.create');
-        Route::post('/titles/{region}', 'store')->name('backend.titles.store');
-        Route::get('/titles/{id}/edit', 'edit')->name('backend.titles.edit');
-        Route::put('/titles/{id}', 'update')->name('backend.titles.update');
-        Route::delete('/titles/{id}', 'destroy')->name('backend.titles.destroy');
+        Route::get('/titles/{region}', 'index')->name('backend.titles.index');
+        Route::get('/titles/{region}/create', 'create')->name('backend.titles.create');
+        Route::post('/titles', 'store')->name('backend.titles.store');
+        Route::get('/titles/{region}/{title}/edit', 'edit')->name('backend.titles.edit');
+        Route::put('/titles/{region}/{title}', 'update')->name('backend.titles.update');
+        Route::delete('/titles/{region}/{title}', 'destroy')->name('admin.backend.titles.destroy');
         });
 });

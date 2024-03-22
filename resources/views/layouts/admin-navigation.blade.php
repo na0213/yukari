@@ -15,9 +15,12 @@
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.backend.regions.index')" :active="request()->routeIs('admin.backend.regions.index')">
+                    {{-- <x-nav-link :href="route('admin.backend.regions.index')" :active="request()->routeIs('admin.backend.regions.index')">
                         {{ __('地域管理') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
+                    {{-- <x-nav-link :href="route('admin.backend.titles.index')" :active="request()->routeIs('admin.backend.titles.index')">
+                        {{ __('称号管理') }}
+                    </x-nav-link> --}}
                 </div>
             </div>
 
@@ -70,9 +73,9 @@
             <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.backend.regions.index')" :active="request()->routeIs('admin.backend.regions.index')">
+            {{-- <x-responsive-nav-link :href="route('admin.backend.regions.index')" :active="request()->routeIs('admin.backend.regions.index')">
                 {{ __('地域管理') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
         </div>
 
         <!-- Responsive Settings Options -->
