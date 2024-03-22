@@ -12,6 +12,8 @@ use App\Http\Controllers\Auth\Admin\PasswordResetLinkController;
 use App\Http\Controllers\Auth\Admin\RegisteredUserController;
 use App\Http\Controllers\Auth\Admin\VerifyEmailController;
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\RegionController;
+use App\Http\Controllers\Backend\TitleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,5 +82,23 @@ Route::middleware('auth:admins')->group(function () {
 
     Route::controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'index')->middleware('verified')->name('dashboard');
+        });
+
+    Route::controller(RegionController::class)->group(function () {
+        Route::get('/regions', 'index')->name('backend.regions.index');
+        Route::get('/regions/create', 'create')->name('backend.regions.create');
+        Route::post('/regions', 'store')->name('backend.regions.store');
+        Route::get('/regions/{id}/edit', 'edit')->name('backend.regions.edit');
+        Route::put('/regions/{id}', 'update')->name('backend.regions.update');
+        Route::delete('/regions/{id}', 'destroy')->name('backend.regions.destroy');
+        });
+
+    Route::controller(TitleController::class)->group(function () {
+        Route::get('/titles', 'index')->name('backend.titles.index');
+        Route::get('/titles/create/{region}', 'create')->name('backend.titles.create');
+        Route::post('/titles/{region}', 'store')->name('backend.titles.store');
+        Route::get('/titles/{id}/edit', 'edit')->name('backend.titles.edit');
+        Route::put('/titles/{id}', 'update')->name('backend.titles.update');
+        Route::delete('/titles/{id}', 'destroy')->name('backend.titles.destroy');
         });
 });
