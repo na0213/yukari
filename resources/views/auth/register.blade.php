@@ -54,7 +54,6 @@
                 <option value = "5">50代</option>
                 <option value = "6">60代~</option>
             </select>
-            {{-- <x-text-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required autocomplete="username" /> --}}
             <x-input-error :messages="$errors->get('city')" class="mt-2" />
         </div>
 

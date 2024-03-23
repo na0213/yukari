@@ -13,12 +13,10 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
-        <script>imageMapResize();</script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            {{-- @include('layouts.navigation') --}}
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -34,5 +32,7 @@
                 {{ $slot }}
             </main>
         </div>
+        <script src="https://unpkg.com/image-map-resizer@1.0.10/js/imageMapResizer.min.js"></script>
+        <script>imageMapResize();</script>
     </body>
 </html>

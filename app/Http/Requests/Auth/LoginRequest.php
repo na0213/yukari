@@ -41,12 +41,13 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
+        $guard = $this->routeIs('admin.*') ? 'admins' : 'web'; // 'users' から 'web' に修正
         //追加
-        if ($this->routeIs('admin.*')) {
-            $guard = 'admins';
-        } else {
-            $guard = 'users';
-        }
+        // if ($this->routeIs('admin.*')) {
+        //     $guard = 'admins';
+        // } else {
+        //     $guard = 'users';
+        // }
 
         if (! Auth::guard($guard)->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
