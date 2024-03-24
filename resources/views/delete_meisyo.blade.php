@@ -42,7 +42,9 @@
             </div>
             <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">各名所を回って地域ポイントをゲットしよう！</p>
           </div>
-          <div class="container px-5 py-24 mx-auto">
+
+          
+          {{-- <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-wrap -m-4">
 
                 <!-- カード1 -->
@@ -54,7 +56,7 @@
             @endforeach
         @endif
     </div>
-            </div>
+            </div> --}}
         </div>
       </section>
 </body>

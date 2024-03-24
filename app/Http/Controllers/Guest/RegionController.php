@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Place;
 
 class RegionController extends Controller
 {
     public function index()
     {
-        // ここで必要なデータを取得する処理を記述する
-        // 例えば、地域情報を取得するコードなど
+        // 全ての名所を取得し、それに紐づく地域も一緒にロード
+        $places = Place::with('region')->get();
 
-        return view('guest.regions.index');
+        return view('guest.regions.index', compact('places'));
     }
 
 }
