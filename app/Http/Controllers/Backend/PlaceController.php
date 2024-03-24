@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Admin;
 use App\Models\Region;
 use App\Models\Place;
+use Validator; 
 
 class PlaceController extends Controller
 {
@@ -20,6 +21,12 @@ class PlaceController extends Controller
     {
         $places = $region->places()->get();
         return view('backend.places.index', compact('places','region'));
+    }
+
+    public function index2()
+    {
+        $places = Place::where('region_id',1)->orderBy('created_at', 'asc')->get();
+    return view('meisyo', ['places' => $places]);
     }
 
     public function create(Region $region)
@@ -30,40 +37,44 @@ class PlaceController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'region_id' => 'required|integer|exists:regions,id',
             'place_name' => 'required|string|max:255',
             'place_info' => 'required|string|max:3000',
             'place_link' => 'required|string|max:255',
             'place_point' => 'required|integer|min:0', // 数値としてバリデーション
-            'place_image' => 'required|image|max:3072',
+            
         ]);
 
-        $manager = new ImageManager(new Driver());
+        // $manager = new ImageManager(new Driver());
 
-        try {
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withInput()
+                ->withErrors($validator);
+        }
             // トランザクション開始
-            DB::beginTransaction();
+            // DB::beginTransaction();
     
-            $url = null;
-            if ($request->hasFile('place_image')) {
+            // $url = null;
+            // if ($request->hasFile('place_image')) {
                 // ファイルから画像を読み込み
-                $image = $manager->read($request->file('place_image')->getPathName());
+                // $image = $manager->read($request->file('place_image')->getPathName());
     
                 // $image->scale(width: 1000);
     
                 // 画像を一時的なファイルとして保存
-                $tempPath = tempnam(sys_get_temp_dir(), 'placeImage') . '.jpg';
-                $image->toPng()->save($tempPath);
+                // $tempPath = tempnam(sys_get_temp_dir(), 'placeImage') . '.jpg';
+                // $image->toPng()->save($tempPath);
     
                 // 保存した一時ファイルをS3にアップロード
-                $fileName = 'place_images/' . uniqid() . '.jpg';
-                Storage::disk('s3')->put($fileName, file_get_contents($tempPath), 'public');
-                $url = Storage::disk('s3')->url($fileName);
+                // $fileName = 'place_images/' . uniqid() . '.jpg';
+                // Storage::disk('s3')->put($fileName, file_get_contents($tempPath), 'public');
+                // $url = Storage::disk('s3')->url($fileName);
     
                 // 一時ファイルを削除
-                @unlink($tempPath);
-            }
+                // @unlink($tempPath);
+                $dummyImagePath = 'dummy_image.jpg';
     
             // Animalインスタンスの作成と保存
             $place = new Place;
@@ -71,25 +82,39 @@ class PlaceController extends Controller
             $place->place_name = $request->input('place_name');
             $place->place_info = $request->input('place_info');
             $place->place_link = $request->input('place_link');
+            $place->place_image = $dummyImagePath; 
             $place->place_point = $request->input('place_point');
-            $place->place_image = $url;
+            // $place->place_image = $url;
             $place->save();
+            return redirect('/meisyo');
     
-            // トランザクションコミット
-            DB::commit();
-            return redirect()->route('admin.backend.places.index', ['region' => $request->input('region_id')])->with('success', '登録されました。');
-        } catch (\Exception $e) {
-            // エラーが発生した場合はロールバック
-            DB::rollback();
-            Log::error($e->getMessage());
-            return back()->withInput()->withErrors(['error' => '保存に失敗しました。']);
-        }
+        //     // トランザクションコミット
+        //     DB::commit();
+        //     return redirect()->route('admin.backend.places.index', ['region' => $request->input('region_id')])->with('success', '登録されました。');
+        // } catch (\Exception $e) {
+        //     // エラーが発生した場合はロールバック
+        //     DB::rollback();
+        //     Log::error($e->getMessage());
+        //     return back()->withInput()->withErrors(['error' => '保存に失敗しました。']);
+        // }
     }
 
     public function edit(Region $region, Place $place)
     {
         $admin = Admin::find(Auth::guard('admins')->id());
         return view('backend.places.edit', compact('admin', 'region', 'place'));
+    }
+
+    public function edit2($place_id)
+    {
+        $places = Place::find($place_id);
+    return view('places', ['places' => $places]);
+    }
+
+    public function edit3($place_id)
+    {
+        $places = Place::find($place_id);
+    return view('places_qr', ['places' => $places]);
     }
 
     public function update(Request $request, Region $region, Place $place)

@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\PlaceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Guest\RegionController;
+use App\Http\Controllers\PointController;
+use App\Models\Point;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +18,26 @@ use App\Http\Controllers\Guest\RegionController;
 |
 */
 
+// Topページ表示
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Topページ表示
+Route::get('/yukari', function () {
+    return view('yukari');
+});
+
+// 名所を表示:通常
+Route::get('/edit2/{place}', [PlaceController::class,"edit2"])->name('edit2'); 
+// 名所を表示：QRコード用
+Route::get('/edit3/{place}', [PlaceController::class,"edit3"])->name('edit3');   
+
+// 
+Route::get('/meisyo', [PlaceController::class,'index2'])->middleware(['auth'])->name('place_index');
+
+// QRコードから名所ページに行き、ボタンをポチっと押す
+Route::post('/point_store',[PointController::class,"store"])->name('point_store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
