@@ -14,4 +14,5 @@ class RegionController extends Controller
 
         return view('guest.regions.index');
     }
+
 }
