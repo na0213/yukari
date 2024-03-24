@@ -25,8 +25,8 @@
             <a href="{{ route('guest.regions.index') }}">
                 <div class="mr-5 text-black hover:text-green-600">地域名所</div>
             </a>
-            <a href="" class="mr-5 text-black hover:text-green-600">ログイン</a>
-            <a href="" class="mr-5 text-black hover:text-green-600">新規登録</a>
+            <a href="/login" class="mr-5 text-black hover:text-green-600">ログイン</a>
+            <a href="/register" class="mr-5 text-black hover:text-green-600">新規登録</a>
           </nav>
         </div>
       </header>

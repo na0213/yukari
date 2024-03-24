@@ -1,37 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-    rel="stylesheet"
-  />
-    <title>Document</title>
-</head>
-<body>
-    <!-- header -->
-    <header class="text-gray-600 body-font">
-        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24"> -->
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-            <a href="/">
-            <span class="ml-3 text-xl">Yukari</span>
-            </a>
-          </a>
-          <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <a href="{{ route('guest.regions.index') }}">
-                <div class="mr-5 text-black hover:text-green-600">地域名所</div>
-            </a>
-            <a href="/login" class="mr-5 text-black hover:text-green-600">ログイン</a>
-            <a href="/register" class="mr-5 text-black hover:text-green-600">新規登録</a>
-          </nav>
-        </div>
-      </header>
-      <!-- header -->
-          
+<x-app-layout>
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
           <div class="flex flex-wrap w-full mb-20">
@@ -52,7 +19,7 @@
                         <div style="max-height: 80px; overflow: hidden;">
                             <p class="text-white leading-relaxed text-base">{{ $place->place_info }}</p>
                         </div>
-                        <a href="{{ route('guest.regions.show', $place->id) }}" class="flex items-center justify-end">
+                        <a href="{{ route('user.places.show', $place->id) }}" class="flex items-center justify-end">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
@@ -66,5 +33,4 @@
           </div>
         </div>
       </section>
-</body>
-</html>
+</x-app-layout>

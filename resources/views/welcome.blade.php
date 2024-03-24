@@ -50,8 +50,8 @@
             <a href="{{ route('guest.regions.index') }}">
                 <div class="mr-5 text-black hover:text-green-600">地域名所</div>
             </a>
-            <a href="" class="mr-5 text-black hover:text-green-600">ログイン</a>
-            <a href="" class="mr-5 text-black hover:text-green-600">新規登録</a>
+            <a href="/login" class="mr-5 text-black hover:text-green-600">ログイン</a>
+            <a href="/register" class="mr-5 text-black hover:text-green-600">新規登録</a>
           </nav>
         </div>
       </header>
@@ -61,7 +61,7 @@
         <div class="container px-5 py-24 mx-auto flex flex-col">
           <div class="lg:w-4/6 mx-auto">
             <div class="rounded-lg h-96 overflow-hidden ">
-              <img alt="content" class="object-cover object-center h-full w-full" src="https://yukari-1k.s3.ap-northeast-1.amazonaws.com/1k/main.jpg">
+              <img alt="content" class="object-cover object-center h-full w-full" src="{{ asset('storage/yukari_top.jpg') }}">
             </div>
             <div class="flex flex-col sm:flex-row mt-10">
               <div class="sm:w-1/3 text-center sm:pr-8 sm:py-8">

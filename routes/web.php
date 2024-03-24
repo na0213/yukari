@@ -6,6 +6,7 @@ use App\Http\Controllers\Guest\RegionController;
 use App\Http\Controllers\User\PlaceController;
 use App\Http\Controllers\User\PointController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +25,13 @@ Route::get('/', function () {
 
 // 地域
 // 地域名称ページ表示
-Route::get('/regions', [RegionController::class, 'index'])->name('guest.regions.index');
-Route::get('/regions/{place}', [RegionController::class, 'show'])->name('guest.regions.show');
+// ゲスト用の地域閲覧画面
+Route::prefix('guest')->name('guest.')->group(function () {
+    Route::get('/regions', [RegionController::class, 'index'])->name('regions.index');
+    Route::get('/regions/{place}', [RegionController::class, 'show'])->name('regions.show');
+});
+// Route::get('/regions', [RegionController::class, 'index'])->name('guest.regions.index');
+// Route::get('/regions/{place}', [RegionController::class, 'show'])->name('guest.regions.show');
 // Topページ表示
 // Route::get('/yukari', function () {
 //     return view('yukari');
@@ -52,12 +58,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // ログインユーザー：地域名称閲覧画面
+    Route::get('/user/regions', [PlaceController::class, 'index'])->name('user.places.index');
+    Route::get('/user/regions/{place}', [PlaceController::class, 'show'])->name('user.places.show');
+    // Route::get('/regions', [PlaceController::class, 'index'])->name('user.places.index');
+    // Route::get('/regions/{place}', [PlaceController::class, 'show'])->name('user.places.show');
     // QRコード読み込み
     Route::get('/qr/{place}', [PlaceController::class, 'qr'])->name('user.qr');
     // QRコード読み込み後のポイント取得
     Route::post('/points/{place}', [PointController::class, 'store'])->name('user.points.store');
     // ユーザーポイント取得履歴
     Route::get('/points', [PointController::class, 'index'])->name('user.points.index');
+    Route::get('/points/{point}', [PointController::class, 'show'])->name('user.points.show');
 });
 
 require __DIR__.'/auth.php';

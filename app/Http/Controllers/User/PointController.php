@@ -4,16 +4,38 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Region;
 use App\Models\Place;
 use App\Models\Point;
+use App\Models\Title;
 
 class PointController extends Controller
 {
     public function index(Request $request)
     {
-        $points = Point::where('user_id', $request->user()->id)->get();
+        $points = Point::with('region')
+        ->where('user_id', $request->user()->id)
+        ->get();
 
         return view('user.points.index', compact('points'));
+    }
+
+    public function show(Request $request, $regionId)
+    {
+        $region = Region::findOrFail($regionId);
+        
+        // ユーザーのそのリージョンにおけるポイントの合計を取得
+        $totalPoints = Point::where('user_id', $request->user()->id)
+                            ->where('region_id', $region->id)
+                            ->sum('point');
+    
+        // 合計ポイントに基づいて称号を取得
+        $title = Title::where('region_id', $region->id)
+                      ->where('total_point', '<=', $totalPoints)
+                      ->orderBy('total_point', 'desc')
+                      ->first();
+    
+        return view('user.points.show', compact('region', 'totalPoints', 'title'));
     }
 
     public function store(Request $request, $placeId)
