@@ -42,14 +42,16 @@
             <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24"> -->
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
-            <span class="ml-3 text-xl">Yukari</span>
+            <a href="/">
+                <span class="ml-3 text-xl">Yukari</span>
+             </a>
           </a>
           <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
             <a href="{{ route('guest.regions.index') }}">
-                <div class="mr-5 text-black hover:text-white">地域名所</div>
+                <div class="mr-5 text-black hover:text-green-600">地域名所</div>
             </a>
-            <a href="" class="mr-5 text-black hover:text-white">ログイン</a>
-            <a href="" class="mr-5 text-black hover:text-white">新規登録</a>
+            <a href="" class="mr-5 text-black hover:text-green-600">ログイン</a>
+            <a href="" class="mr-5 text-black hover:text-green-600">新規登録</a>
           </nav>
         </div>
       </header>

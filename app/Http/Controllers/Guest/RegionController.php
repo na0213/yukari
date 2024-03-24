@@ -16,4 +16,10 @@ class RegionController extends Controller
         return view('guest.regions.index', compact('places'));
     }
 
+    public function show($id)
+    {
+        $place = Place::with('region')->findOrFail($id);
+        return view('guest.regions.show', compact('place'));
+    }
+
 }
