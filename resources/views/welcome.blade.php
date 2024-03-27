@@ -91,7 +91,7 @@
       </section>
 
 <!-- イベント情報 -->
-      <section class="text-gray-600 body-font overflow-hidden">
+      <!-- <section class="text-gray-600 body-font overflow-hidden">
         <div class="container px-5 py-24 mx-auto">
           <div class="-my-8 divide-y-2 divide-gray-100">
             <div class="py-8 flex flex-wrap md:flex-nowrap">
@@ -147,7 +147,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!-- イベント情報 -->
 
 </body>
